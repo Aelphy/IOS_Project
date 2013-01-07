@@ -42,7 +42,7 @@
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     m_done              = YES;
-    NSLog(@"VIKTORY penis");
+    NSLog(@"VIKTORY");
 }
 
 // error
