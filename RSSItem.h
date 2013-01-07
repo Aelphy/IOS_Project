@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface RSSItem : NSObject
-{
 
-}
 @property (copy) NSString* title;
 @property (copy) NSString* guid;
 @property (retain) NSString* link;

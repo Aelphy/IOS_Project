@@ -10,9 +10,6 @@
 #import "RSSItem.h"
 
 @interface RSSChannel : NSObject
-{
-
-}
 
 @property (copy) NSString* title;
 @property (retain) NSString* link;

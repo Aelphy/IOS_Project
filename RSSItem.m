@@ -9,14 +9,11 @@
 #import "RSSItem.h"
 
 @implementation RSSItem
-{
-    
-}
+
 @synthesize title;
 @synthesize guid;
 @synthesize link;
 @synthesize RSSDescription;
-
 
 -(id) init
 { 

@@ -6,12 +6,14 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
+#import "RSSChannel.h"
 
 @protocol RSSDelegate <NSObject>
 
 -(void) didRSSLoadSucceeded;
 -(void) didRSSLoadFaild: (NSError* ) error;
--(NSError*)parsit:(NSString*)url;
+-(RSSChannel*)parsit:(NSString*)url;
 
 @end

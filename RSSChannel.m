@@ -9,9 +9,7 @@
 #import "RSSChannel.h"
 
 @implementation RSSChannel
-{
-    
-}   
+
 @synthesize title;
 @synthesize link;
 @synthesize docs;
@@ -37,7 +35,7 @@
         webMaster       = nil;
         copyright       = nil;
         generator       = nil;
-        RSSItems        = nil;
+        RSSItems		= [[[NSMutableArray alloc]initWithObjects:nil]autorelease];
         pubDate         = nil;
     }
     return self;    
@@ -54,7 +52,7 @@
     [webMaster release];
     [copyright release];
     [generator release];
-    [RSSItems release];
+    //[RSSItems release];
     [pubDate release];
     [super dealloc];
 }

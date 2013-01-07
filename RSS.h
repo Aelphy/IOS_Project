@@ -12,13 +12,17 @@
 #import "RSSItem.h"
 #import "RSSDelegate.h"
 
-@protocol RSSDelegate;
-@interface RSS : NSObject
 
-@property (retain) id target;
-@property (assign) SEL callback;
+@interface RSS : NSObject<NSURLConnectionDataDelegate>
+{
+
+}
+@property (retain) RSSChannel* channel;
 @property (assign) id<RSSDelegate> delegate;
+@property NSMutableData* resultsData;
 
-- (void) LoadFromURL: ( NSString* )url;  
+- (void) LoadFromURL: ( NSString* )url;
++ (RSS*) instance;
+- (void) VosvratChanela:(id)params;
               
 @end

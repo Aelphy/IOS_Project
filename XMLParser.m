@@ -19,11 +19,12 @@
 
 
 -(void) dealloc {
-    [m_error release];
+	[m_error release];
     [m_titles release];
     [m_links release];
     [m_Descriptions release];
-    [channel release];
+	[item release];
+    //[channel release];
     [super dealloc];
 }
 
@@ -62,32 +63,34 @@
 //new element
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 { 
-    NSLog(@"%@ STAT", elementName);
 	BOOL	isTitle2           = [[elementName lowercaseString] isEqualToString:@"title"];
 	BOOL    isLink2            = [[elementName lowercaseString] isEqualToString:@"link"];
 	BOOL	isDescription2     = [[elementName lowercaseString] isEqualToString:@"description"];
 	BOOL	isItem2            = [[elementName lowercaseString] isEqualToString:@"item"];
 
         
-    if (isTitle2){
+    if (isTitle2)
+	{
 		m_title              = [NSMutableString new];
 		isTitle	=	isTitle2;
     }
-    else if (isLink2){
+    else if (isLink2)
+	{
         m_link              = [NSMutableString new];
 		isLink = isLink2;
     }
-    else if (isDescription2){
+    else if (isDescription2)
+	{
         m_Description       = [NSMutableString new];
 		isDescription = isDescription2;
     }
-    else if (isItem2){
-        item                = [[[RSSItem alloc] init] autorelease] ;
+    else if (isItem2)
+	{
+        item                = [[RSSItem alloc] init] ;
 		isItem = isItem2;
     }
     else{
         isunone=YES;
-        NSLog(@"unnone!!!! starte %@", elementName);
     }
 }
 
@@ -96,86 +99,90 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     
 
-    NSLog(@"%@ END",elementName);
-    if ( isTitle ) {
-        if(isItem){
+
+    if ( isTitle )
+	{
+        if(isItem)
+		{
             item.title = m_title;
-            NSLog(@"FATALITY");
+
         }
-        else{
+        else
+		{
             channel.title = m_title;
         }
 		if (m_title!=nil)
 		{
+			
 			[m_title release];
 			m_title=nil;
-			
-		}
-		else
-		{
-			NSLog(@"pisko_title");
+						
 		}
 		isTitle = NO;
     }
-    else if (isLink){
-        if(isItem){
+    else if (isLink)
+	{
+        if(isItem)
+		{
             item.link = m_link;
-            NSLog(@"FATALITY");
+
         }
-        else{
+        else
+		{
             channel.link = m_link;
         }
 		if(m_link!=nil)
 		{
 			[m_link release];
-			
-		}
-		else
-		{
-			NSLog(@"pisko_link");
+			m_link=nil;
 		}
 		isLink = NO;
     }
-    else if(isDescription){
-        if(isItem){
+    else if(isDescription)
+	{
+        if(isItem)
+		{
             item.RSSDescription = m_Description;
-            NSLog(@"FATALITY");
+
         }
-        else{
+        else
+		{
             channel.RSSDescription = m_Description;
         } 
 		if(m_Description != nil)
 		{
 			[m_Description release];
 			m_Description = nil;
-		}else
-		{
-			NSLog(@"pisko_desc");
 		}
 		isDescription = NO;
     }
-    else{
-        NSLog(@"unnone!!!! ende %@", elementName);
+    else
+	{
         isunone=NO;
     }
     
     BOOL isItem2            = [[elementName lowercaseString] isEqualToString:@"item"];
-    if (isItem2) {
+    if (isItem2)
+	{
         [channel.RSSItems addObject:item];
-        [item release];
-		isItem = NO;
-    }
+        isItem	= NO;
+		[item release];
+		item	= nil;
+	}
 }
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
 
-    NSLog(@"%@ ", string);
-	if ( isTitle ) {
+	if ( isTitle )
+	{
         [m_title appendString:string];
     }
-    else if (isLink){
+    else if (isLink)
+	{
         [m_link appendString:string];
     }
-    else if (isDescription){
+    else if (isDescription)
+	{
         [m_Description appendString:string];
     }
 }

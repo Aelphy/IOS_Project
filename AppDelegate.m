@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RSS.h"
 #import "ViewController.h"
+#import "RSSViewController.h"
 
 @implementation AppDelegate
 
@@ -24,24 +25,22 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+   self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+    /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPhone" bundle:nil] autorelease];
     } else {
         self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController_iPad" bundle:nil] autorelease];
-    }
-    self.window.rootViewController = self.viewController;
+    }*/
+	
+	UIViewController* viewController = [[[RSSViewController alloc]initWithNibName:@"RSSViewController" bundle:nil]autorelease];
+	UINavigationController* naviCtrl = [[[UINavigationController alloc] initWithRootViewController:viewController]autorelease];
+	
+    self.window.rootViewController = naviCtrl;
     [self.window makeKeyAndVisible];
    
-    /**/
-	RSS* rss=[[[RSS alloc]init]autorelease];
-    RSSClient* Client=[[[RSSClient alloc]init]autorelease];
-    [rss setDelegate:Client];
-    [rss LoadFromURL:@"http://itw66.ru/rss/index"];
-    /**/
     
-    return YES;
+	return  YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
